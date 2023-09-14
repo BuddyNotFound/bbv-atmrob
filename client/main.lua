@@ -1,6 +1,12 @@
 Main = {}
 registered = 0
 
+local CurrentCops = 0
+
+RegisterNetEvent('police:SetCopCount', function(amount)
+    CurrentCops = amount
+end)
+
 CreateThread(function()
     for k,v in pairs(Config.Settings.ATMs) do
         Main:Int(v)
@@ -51,6 +57,10 @@ end)
 
 function Main:Plant(ent)
     local hasitem = QBCore.Functions.HasItem(Config.Settings.BombItemName)
+    if CurrentCops < Config.Settings.CopsNeeded then 
+        Wrapper:Notify("Not enougth cops.")
+        return
+    end
     if not hasitem then
         Wrapper:Notify("You don't have a bomb")
         return
