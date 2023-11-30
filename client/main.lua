@@ -30,10 +30,6 @@ end
 RegisterNetEvent('bbv-robatm:rob',function()
     local ped = PlayerPedId()
     local pedCoords = GetEntityCoords(PlayerPedId())
-    if Main:Cooldown() then
-        Wrapper:Notify("Robbery is on cooldown")
-        return 
-    end
     for k,v in pairs(Config.Settings.ATMs) do
         objectId = GetClosestObjectOfType(pedCoords, 2.0, GetHashKey(Config.Settings.ATMs[k]), false)
         if DoesEntityExist(objectId) then
@@ -68,6 +64,10 @@ function Main:Plant(ent)
     if not hasitem then
         Wrapper:Notify("You don't have a bomb")
         return
+    end
+    if Main:Cooldown() then
+        Wrapper:Notify("Robbery is on cooldown")
+        return 
     end
    Wrapper:RemoveItem(Config.Settings.BombItemName, 1)
    Wrapper:Log('ATM ROBBERY')
