@@ -28,6 +28,19 @@ function Main:Int(Model)
 end
 
 RegisterNetEvent('bbv-robatm:rob',function()
+    local hasitem = QBCore.Functions.HasItem(Config.Settings.BombItemName)
+    if CurrentCops < Config.Settings.CopsNeeded then 
+        Wrapper:Notify("Not enougth cops.")
+        return
+    end
+    if not hasitem then
+        Wrapper:Notify("You don't have a bomb")
+        return
+    end
+    if Main:Cooldown() then
+        Wrapper:Notify("Robbery is on cooldown")
+        return 
+    end
     local ped = PlayerPedId()
     local pedCoords = GetEntityCoords(PlayerPedId())
     for k,v in pairs(Config.Settings.ATMs) do
@@ -56,19 +69,6 @@ RegisterNetEvent('bbv-robatm:rob',function()
 end)
 
 function Main:Plant(ent)
-    local hasitem = QBCore.Functions.HasItem(Config.Settings.BombItemName)
-    if CurrentCops < Config.Settings.CopsNeeded then 
-        Wrapper:Notify("Not enougth cops.")
-        return
-    end
-    if not hasitem then
-        Wrapper:Notify("You don't have a bomb")
-        return
-    end
-    if Main:Cooldown() then
-        Wrapper:Notify("Robbery is on cooldown")
-        return 
-    end
    Wrapper:RemoveItem(Config.Settings.BombItemName, 1)
    Wrapper:Log('ATM ROBBERY')
    local entpos = GetEntityCoords(ent)
