@@ -10,6 +10,7 @@ Wrapper = {
 
 
 function Wrapper:CreateObject(id,prop,coords,network,misson) -- Create object / prop
+    self:LoadModel(GetHashKey(prop))
     Wrapper.object[id] = CreateObject(GetHashKey(prop), coords, network or false,misson or false)
     -- PlaceObjectOnGroundProperly(Wrapper.object[id])
     SetEntityHeading(Wrapper.object[id], coords.w)

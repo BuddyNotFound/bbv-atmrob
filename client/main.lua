@@ -79,10 +79,10 @@ function Main:Plant(ent)
    while not HasModelLoaded(prop) do
      Wait(0)
    end
-   Wrapper:CreateObject(ent,prop,pos,true,false)
+   Wrapper:CreateObject('thebomb',prop,pos,true,false)
    Wrapper:Notify("The bomb will detonate in 10 seconds")
    Wait(10000)
-   Wrapper:DeleteObject(objectId)
+   Wrapper:DeleteObject('thebomb')
    AddExplosion(pos.x,pos.y,pos.z,2,15.0,true,false,false)
    local droppos = vector3(entpos.x - (entf.x - 0.1),entpos.y - (entf.y - 0.1) ,entpos.z)
    self:MoneyDrop(droppos)
