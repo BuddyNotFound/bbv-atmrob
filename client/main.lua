@@ -59,8 +59,13 @@ RegisterNetEvent('bbv-robatm:rob',function()
                 anim = "machinic_loop_mechandplayer",
                 flags = 49,
              }, {}, {}, function()
-                Main:Plant(objectId)
-                StopAnimTask(PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
+                for k,v in pairs(Config.Settings.ATMs) do
+                    objectId1 = GetClosestObjectOfType(pedCoords, 2.0, GetHashKey(Config.Settings.ATMs[k]), false)
+                    if DoesEntityExist(objectId1) then
+                        Main:Plant(objectId1)
+                    end
+                StopAnimTask(PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0) 
+                end
              end, function() -- Cancel
                 StopAnimTask(PlayerPedId(), "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", "machinic_loop_mechandplayer", 1.0)
              end)
@@ -81,7 +86,7 @@ function Main:Plant(ent)
    end
    Wrapper:CreateObject('thebomb',prop,pos,true,false)
    Wrapper:Notify("The bomb will detonate in 10 seconds")
-   Wait(10000)
+   Wait(10000) 
    Wrapper:DeleteObject('thebomb')
    AddExplosion(pos.x,pos.y,pos.z,2,15.0,true,false,false)
    local droppos = vector3(entpos.x - (entf.x - 0.1),entpos.y - (entf.y - 0.1) ,entpos.z)
