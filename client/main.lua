@@ -60,7 +60,7 @@ RegisterNetEvent('bbv-robatm:rob',function()
                 flags = 49,
              }, {}, {}, function()
                 for k,v in pairs(Config.Settings.ATMs) do
-                    objectId1 = GetClosestObjectOfType(pedCoords, 2.0, GetHashKey(Config.Settings.ATMs[k]), false)
+                    objectId1 = GetClosestObjectOfType(pedCoords, 3.0, GetHashKey(Config.Settings.ATMs[k]), false)
                     if DoesEntityExist(objectId1) then
                         Main:Plant(objectId1)
                     end
